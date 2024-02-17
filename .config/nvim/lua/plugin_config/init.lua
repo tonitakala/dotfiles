@@ -1,0 +1,6 @@
+require("plugin_config.vscode")
+require("plugin_config.nvim-tree")
+require("plugin_config.toggleterm")
+require("plugin_config.lsp")
+require("plugin_config.formatting")
+require("plugin_config.autocomplete")
