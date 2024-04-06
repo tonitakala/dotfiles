@@ -9,7 +9,7 @@ end
 vim.g.mapleader = " "
 
 -- Toggle nvim-tree on current file
-KeyMap("n", "<Space>b", ":NvimTreeFindFileToggle<CR>")
+KeyMap("n", "<Space>b", ":NvimTreeFindFileToggle<CR>", { desc = "Toggle NvimTree" })
 
 -- Telescope
 local builtin = require("telescope.builtin")
@@ -24,6 +24,7 @@ KeyMap("n", "<Space><Space>", builtin.oldfiles, { desc = "Recent files" })
 KeyMap("n", "<Space>fg", builtin.live_grep, { desc = "[F]ind by [G]rep" })
 KeyMap("n", "<Space>fh", builtin.help_tags, { desc = "[F]ind [H]elp" })
 KeyMap("n", "<Space>fs", builtin.lsp_document_symbols, { desc = "[F]ind document [S]ymbols" })
+KeyMap("n", "<Space>fe", builtin.resume, { desc = "[F]ind [E]arlier" })
 KeyMap("n", "<C-f>", builtin.current_buffer_fuzzy_find)
 
 -- Toggle between windows (on windows)

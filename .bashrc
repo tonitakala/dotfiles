@@ -126,3 +126,7 @@ export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 eval "$(zoxide init bash)"
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)

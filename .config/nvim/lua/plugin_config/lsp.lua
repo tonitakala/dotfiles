@@ -24,6 +24,19 @@ require("lspconfig")["jsonls"].setup({
   capabilities = capabilities,
 })
 
+local pse_bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services"
+local pse_command_fmt =
+[[& '%s/PowerShellEditorServices/Start-EditorServices.ps1' -BundledModulesPath '%s' -LogPath '%s/powershell_es.log' -SessionDetailsPath '%s/powershell_es.session.json' -FeatureFlags @() -AdditionalModules @() -HostName nvim -HostProfileId 0 -HostVersion 1.0.0 -Stdio -LogLevel Normal]]
+local pse_temp_path = vim.fn.stdpath("cache")
+local pse_command = pse_command_fmt:format(pse_bundle_path, pse_bundle_path, pse_temp_path, pse_temp_path)
+
+require("lspconfig")["powershell_es"].setup({
+  filetypes = { "ps1" },
+  bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services",
+  cmd = { "pwsh", "-NoLogo", "-Command", pse_command },
+  -- capabilities = capabilities,
+})
+
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set("n", "<space>e", vim.diagnostic.open_float)
@@ -50,8 +63,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
     vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
     vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
-    vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
-    vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
+    vim.keymap.set("n", "<space>lr", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { desc = "[LSP] Rename" }))
+    vim.keymap.set({ "n", "v" }, "<space>lc", vim.lsp.buf.code_action,
+      vim.tbl_extend("force", opts, { desc = "[LSP] Code Action" }))
     vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
     -- vim.keymap.set('n', '<space>f', function()
     --  vim.lsp.buf.format { async = true }

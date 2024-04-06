@@ -66,7 +66,7 @@ local plugins = {
       local configs = require("nvim-treesitter.configs")
 
       configs.setup({
-        ensure_installed = { "lua", "javascript", "html", "css", "json", "typescript" },
+        ensure_installed = { "lua", "javascript", "html", "css", "json", "typescript", "bicep" },
 
         sync_install = false,
         auto_install = true,
@@ -110,9 +110,11 @@ local plugins = {
   },
 
   {
-    "sitiom/nvim-numbertoggle",
-    event = "BufWinEnter",
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" }
   },
+
 
   {
     "lewis6991/gitsigns.nvim",
@@ -181,11 +183,9 @@ local plugins = {
     config = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 750
-      require("which-key").setup({
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      })
+
+      local wk = require("which-key")
+      wk.setup();
     end,
   },
 }
