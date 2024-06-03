@@ -127,6 +127,8 @@ export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
 
 eval "$(zoxide init bash)"
 
+# Powershell alias
+alias powershell='pwsh'
 
 # Load Angular CLI autocompletion.
 source <(ng completion script)
