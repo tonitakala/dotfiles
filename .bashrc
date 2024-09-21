@@ -130,5 +130,10 @@ eval "$(zoxide init bash)"
 # Powershell alias
 alias powershell='pwsh'
 
+# Fix xdg-open not being able to open Windows browser
+# Might require: sudo apt install xdg-utils
+# https://github.com/microsoft/WSL/issues/8892#issuecomment-1964338674
+export BROWSER="cmd.exe /c start" # add to ~/.profile to make permanent
+
 # Load Angular CLI autocompletion.
 source <(ng completion script)
