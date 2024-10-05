@@ -10,17 +10,41 @@ require("lspconfig")["tsserver"].setup({
 
 require("lspconfig")["lua_ls"].setup({
   capabilities = capabilities,
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { "vim" },
+      }
+    }
+  }
 })
 
 require("lspconfig")["bicep"].setup({
   capabilities = capabilities,
+  filetypes = { "bicep", "bicepparam" },
 })
 
 require("lspconfig")["marksman"].setup({
   capabilities = capabilities,
 })
 
+require("lspconfig")["yamlls"].setup({
+  capabilities = capabilities,
+})
+
 require("lspconfig")["jsonls"].setup({
+  capabilities = capabilities,
+})
+
+require("lspconfig")["html"].setup({
+  capabilities = capabilities,
+})
+
+require("lspconfig")["cssls"].setup({
+  capabilities = capabilities,
+})
+
+require("lspconfig")["angularls"].setup({
   capabilities = capabilities,
 })
 
@@ -33,16 +57,17 @@ local pse_command = pse_command_fmt:format(pse_bundle_path, pse_bundle_path, pse
 require("lspconfig")["powershell_es"].setup({
   filetypes = { "ps1" },
   bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services",
+  settings = { powershell = { codeFormatting = { Preset = 'OTBS' } } },
   cmd = { "pwsh", "-NoLogo", "-Command", pse_command },
   -- capabilities = capabilities,
 })
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set("n", "<space>e", vim.diagnostic.open_float)
+-- vim.keymap.set("n", "<space>e", vim.diagnostic.open_float)
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist)
+-- vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist)
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -62,7 +87,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
     vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-    vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
+    -- vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
     vim.keymap.set("n", "<space>lr", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { desc = "[LSP] Rename" }))
     vim.keymap.set({ "n", "v" }, "<space>lc", vim.lsp.buf.code_action,
       vim.tbl_extend("force", opts, { desc = "[LSP] Code Action" }))
@@ -71,4 +96,21 @@ vim.api.nvim_create_autocmd("LspAttach", {
     --  vim.lsp.buf.format { async = true }
     -- end, opts)
   end,
+})
+
+vim.diagnostic.config({
+  signs = true,
+  underline = true,
+  severity_sort = true,
+  virtual_text = {
+    prefix = "",
+    spacing = 4,
+  },
+  update_in_insert = false,
+  severity = {
+    error = "",
+    warning = "",
+    information = "",
+    hint = "",
+  }
 })

@@ -135,5 +135,11 @@ alias powershell='pwsh'
 # https://github.com/microsoft/WSL/issues/8892#issuecomment-1964338674
 export BROWSER="cmd.exe /c start" # add to ~/.profile to make permanent
 
+# Show git branch in terminal
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+export PS1="\[\e[32m\]\u@\h:\[\e[34m\]\w \[\e[91m\]\$(parse_git_branch)\[\e[00m\]$ "
+
 # Load Angular CLI autocompletion.
 source <(ng completion script)

@@ -13,11 +13,14 @@ require("conform").setup({
     typescript = { "prettierd" },
     markdown = { "prettierd" },
     yaml = { "prettierd" },
+    html = { "prettierd" },
+    json = { "prettierd" },
+    powershell = { "powershell_es" }
   },
 
   format_on_save = {
     -- These options will be passed to conform.format()
-    timeout_ms = 1500,
+    timeout_ms = 1000,
     lsp_fallback = true,
   },
 

@@ -27,6 +27,9 @@ KeyMap("n", "<Space>fs", builtin.lsp_document_symbols, { desc = "[F]ind document
 KeyMap("n", "<Space>fe", builtin.resume, { desc = "[F]ind [E]arlier" })
 KeyMap("n", "<C-f>", builtin.current_buffer_fuzzy_find)
 
+KeyMap("n", "<Space>if", ":ConformInfo<CR>", { desc = "[I]nformation about [F]ormatting (:ConformInfo)" })
+KeyMap("n", "<Space>il", ":LspInfo<CR>", { desc = "[I]nformation about [L]SP (:LspInfo)" })
+
 -- Toggle between windows (on windows)
 if vim.fn.has("win32") == 1 then
   KeyMap("n", "<C-h>", "<C-w>h")
@@ -63,10 +66,10 @@ KeyMap("v", "<", "<gv")
 KeyMap("v", ">", ">gv")
 
 -- Close buffer and retain split
-vim.keymap.set("n", "<leader>w", "<cmd>bp|bd #<CR>", { desc = "Close Buffer; Retain Split" })
+-- vim.keymap.set("n", "<leader>w", "<cmd>bp|bd #<CR>", { desc = "Close Buffer; Retain Split" })
 
 -- Leave insert mode with jj
-vim.keymap.set("i", "jj", "<Esc>", { desc = "Esc" })
+-- vim.keymap.set("i", "jj", "<Esc>", { desc = "Esc" })
 
 vim.g.copilot_no_tab_map = true
 vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })

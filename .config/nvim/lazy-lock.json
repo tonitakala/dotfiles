@@ -9,6 +9,7 @@
   "conform.nvim": { "branch": "master", "commit": "bf109f061fc3cd75394b7823923187ae045cbf22" },
   "copilot.vim": { "branch": "release", "commit": "9484e35cf222e9360e05450622a884f95c662c4c" },
   "dressing.nvim": { "branch": "master", "commit": "18e5beb3845f085b6a33c24112b37988f3f93c06" },
+  "flash.nvim": { "branch": "main", "commit": "34c7be146a91fec3555c33fe89c7d643f6ef5cf1" },
   "gitsigns.nvim": { "branch": "main", "commit": "078041e9d060a386b0c9d3a8c7a7b019a35d3fb0" },
   "harpoon": { "branch": "harpoon2", "commit": "a38be6e0dd4c6db66997deab71fc4453ace97f9c" },
   "lazy.nvim": { "branch": "main", "commit": "83493db50a434a4c5c648faf41e2ead80f96e478" },
@@ -16,6 +17,8 @@
   "markdown-preview.nvim": { "branch": "master", "commit": "a923f5fc5ba36a3b17e289dc35dc17f66d0548ee" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "2ba17cecfde8b8c7c7c287909a1e4de895223df6" },
   "mason.nvim": { "branch": "main", "commit": "3b5068f0fc565f337d67a2d315d935f574848ee7" },
+  "mini.surround": { "branch": "main", "commit": "e1ac1ce5c7499aa4cc2ca9fb1adec9e730dd9394" },
+  "nvim-autopairs": { "branch": "master", "commit": "ee297f215e95a60b01fde33275cc3c820eddeebe" },
   "nvim-cmp": { "branch": "main", "commit": "04e0ca376d6abdbfc8b52180f8ea236cbfddf782" },
   "nvim-lspconfig": { "branch": "master", "commit": "d67715d3b746a19e951b6b0a99663fa909bb9e64" },
   "nvim-tree.lua": { "branch": "master", "commit": "f7c09bd72e50e1795bd3afb9e2a2b157b4bfb3c3" },
@@ -31,5 +34,6 @@
   "vim-tmux-navigator": { "branch": "master", "commit": "38b1d0402c4600543281dc85b3f51884205674b6" },
   "vim-vsnip": { "branch": "master", "commit": "02a8e79295c9733434aab4e0e2b8c4b7cea9f3a9" },
   "vscode.nvim": { "branch": "main", "commit": "ea9ff6da3756ab229bcb59aad1ea7749eb15b065" },
-  "which-key.nvim": { "branch": "main", "commit": "4433e5ec9a507e5097571ed55c02ea9658fb268a" }
+  "which-key.nvim": { "branch": "main", "commit": "4433e5ec9a507e5097571ed55c02ea9658fb268a" },
+  "workspace-diagnostics.nvim": { "branch": "main", "commit": "573ff93c47898967efdfbc6587a1a39e3c2d365e" }
 }

@@ -182,12 +182,65 @@ local plugins = {
     "folke/which-key.nvim",
     config = function()
       vim.o.timeout = true
-      vim.o.timeoutlen = 750
+      vim.o.timeoutlen = 500
 
       local wk = require("which-key")
       wk.setup();
     end,
   },
+
+  {
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    config = true
+    -- use opts = {} for passing setup options
+    -- this is equivalent to setup({}) function
+  },
+
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {},
+    -- stylua: ignore
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      -- { "S",     mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
+      -- { "r",     mode = "o",               function() require("flash").remote() end,            desc = "Remote Flash" },
+      -- { "R",     mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      -- { "<c-s>", mode = { "c" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
+    },
+  },
+  {
+    'echasnovski/mini.surround',
+    version = false,
+    opts = {
+
+      mappings = {
+        add = 'ma',          -- Add surrounding in Normal and Visual modes
+        delete = 'md',       -- Delete surrounding
+        find = '',           -- Find surrounding (to the right)
+        find_left = '',      -- Find surrounding (to the left)
+        highlight = 'mh',    -- Highlight surrounding
+        replace = 'mr',      -- Replace surrounding
+        update_n_lines = '', -- Update `n_lines`
+
+        suffix_last = '',    -- Suffix to search with "prev" method
+        suffix_next = '',    -- Suffix to search with "next" method
+      },
+
+    }
+  },
+
+  -- {
+  --   'norcalli/nvim-colorizer.lua',
+  --   config = function()
+  --     require('colorizer').setup({
+  --       '*', -- Highlight all files, but customize some others.
+  --       css = { rgb_fn = true }
+  --     })
+  --   end
+  -- }
+
 }
 
 require("lazy").setup(plugins)
