@@ -40,8 +40,24 @@ vim.o.timeoutlen = 300
 -- disable highlighted search (/searchterm)
 -- vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
 
--- Yank to clipboard
-vim.api.nvim_set_option("clipboard", "unnamed")
+-- Yank to clipboard (disabled because is slow)
+-- vim.api.nvim_set_option("clipboard", "unnamed")
+
+-- sync with system clipboard on focus
+vim.api.nvim_create_autocmd({ "FocusGained" }, {
+  pattern = { "*" },
+  command = [[call setreg("@", getreg("+"))]],
+})
+
+
+-- sync with system clipboard on focus
+vim.api.nvim_create_autocmd({ "FocusLost" }, {
+  pattern = { "*" },
+  command = [[call setreg("+", getreg("@"))]],
+})
+
+vim.api.nvim_set_option("clipboard", "")
+
 
 local telescope = require("telescope")
 
@@ -54,7 +70,18 @@ telescope.setup({
     },
 
     oldfiles = {
-      cwd_only = true
+      cwd_only = true,
+      previewer = false
+    },
+
+    live_grep = {
+      -- https://github.com/nvim-telescope/telescope.nvim/issues/855#issuecomment-1721253959
+      additional_args = { "--line-number", "--color=never", "--hidden", "--glob", "!{**/.git/*,**/node_modules/*,**/package-lock.json,**/yarn.lock}" },
+      previewer = false
+    },
+
+    current_buffer_fuzzy_find = {
+      previewer = false
     }
   },
 
@@ -63,7 +90,7 @@ telescope.setup({
       fuzzy = true,                   -- false will only do exact matching
       override_generic_sorter = true, -- override the generic sorter
       override_file_sorter = true,    -- override the file sorter
-      case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+      case_mode = "ignore_case",      -- or "ignore_case" or "respect_case"
     }
   }
 })

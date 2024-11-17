@@ -1,12 +1,16 @@
 require("mason").setup()
 require("mason-lspconfig").setup({})
 
+require("typescript-tools").setup({
+
+})
+
 -- Set up lspconfig.
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-require("lspconfig")["tsserver"].setup({
-  capabilities = capabilities,
-})
+-- require("lspconfig")["tsserver"].setup({
+--   capabilities = capabilities,
+-- })
 
 require("lspconfig")["lua_ls"].setup({
   capabilities = capabilities,
@@ -88,13 +92,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
     vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
     -- vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
-    vim.keymap.set("n", "<space>lr", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { desc = "[LSP] Rename" }))
+    vim.keymap.set("n", "<space>lr", vim.lsp.buf.rename,
+      vim.tbl_extend("force", opts, { desc = "[LSP] [R]ename Variable" }))
     vim.keymap.set({ "n", "v" }, "<space>lc", vim.lsp.buf.code_action,
-      vim.tbl_extend("force", opts, { desc = "[LSP] Code Action" }))
+      vim.tbl_extend("force", opts, { desc = "[LSP] [C]ode Action" }))
     vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
     -- vim.keymap.set('n', '<space>f', function()
     --  vim.lsp.buf.format { async = true }
     -- end, opts)
+    vim.keymap.set("n", "<space>lo", ":TSToolsOrganizeImports", { desc = "[LSP] [O]rganize Imports" })
+    vim.keymap.set("n", "<space>li", ":TSToolsAddMissingImports", { desc = "[LSP] Add Missing [I]mports" })
+    vim.keymap.set("n", "<space>lR", ":TSToolsRenameFile", { desc = "[LSP] [R]ename File" })
   end,
 })
 

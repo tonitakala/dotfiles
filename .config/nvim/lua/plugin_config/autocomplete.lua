@@ -46,6 +46,11 @@ cmp.setup({
       -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
     end,
   },
+  view = {
+    docs = {
+      auto_open = true
+    }
+  },
   completion = {
     completeopt = "menu,menuone,preview,select",
   },
@@ -85,7 +90,7 @@ cmp.setup({
     -- C-Space not working on windows: https://github.com/neovim/neovim/issues/8435
     ["<C-x>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.abort(),
-    ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    -- ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#intellij-like-mapping
     ["<Tab>"] = cmp.mapping(function(fallback)
       -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
