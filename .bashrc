@@ -118,17 +118,24 @@ fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export DOTNET_ROOT=$HOME/.dotnet
 export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-eval "$(zoxide init bash)"
+## Optimize directory searching
+## https://github.com/junegunn/fzf?tab=readme-ov-file#using-the-finder
+
+# Feed the output of fd into fzf
+# fdfind --type f --strip-cwd-prefix | fzf
 
 # Powershell alias
 alias powershell='pwsh'
+
+# Find projects faster
+alias d='cd $(fdfind --type d --strip-cwd-prefix | fzf)'
 
 # Fix xdg-open not being able to open Windows browser
 # Might require: sudo apt install xdg-utils
@@ -142,4 +149,7 @@ parse_git_branch() {
 export PS1="\[\e[32m\]\u@\h:\[\e[34m\]\w \[\e[91m\]\$(parse_git_branch)\[\e[00m\]$ "
 
 # Load Angular CLI autocompletion.
-source <(ng completion script)
+# source <(ng completion script)
+
+# This is slow to execute?
+eval "$(zoxide init bash)"
