@@ -9,7 +9,7 @@ end
 vim.g.mapleader = " "
 
 -- Toggle nvim-tree on current file
-KeyMap("n", "<Space>b", ":Neotree toggle<CR>", { desc = "Toggle FileTree" })
+KeyMap("n", "<Space>b", ":Neotree filesystem toggle reveal<CR>", { desc = "Toggle FileTree" })
 
 -- Telescope
 local builtin = require("telescope.builtin")
