@@ -140,7 +140,7 @@ alias d='cd $(fdfind --type d --strip-cwd-prefix | fzf)'
 # Fix xdg-open not being able to open Windows browser
 # Might require: sudo apt install xdg-utils
 # https://github.com/microsoft/WSL/issues/8892#issuecomment-1964338674
-export BROWSER="cmd.exe /c start" # add to ~/.profile to make permanent
+export BROWSER="/mnt/c/windows/system32/cmd.exe /c start" # add to ~/.profile to make permanent
 
 # Show git branch in terminal
 parse_git_branch() {
