@@ -142,6 +142,10 @@ alias d='cd $(fdfind --type d --strip-cwd-prefix | fzf)'
 # https://github.com/microsoft/WSL/issues/8892#issuecomment-1964338674
 export BROWSER="/mnt/c/windows/system32/cmd.exe /c start" # add to ~/.profile to make permanent
 
+# @rantalainen/node-powershell-handler
+# remember to run `chmod +x askpass.sh`
+export SSH_ASKPASS_OVERRIDE="$HOME/dotfiles/askpass.sh"
+
 # Show git branch in terminal
 parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
