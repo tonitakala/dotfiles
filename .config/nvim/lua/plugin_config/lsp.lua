@@ -100,9 +100,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -- vim.keymap.set('n', '<space>f', function()
     --  vim.lsp.buf.format { async = true }
     -- end, opts)
-    vim.keymap.set("n", "<space>lo", ":TSToolsOrganizeImports", { desc = "[LSP] [O]rganize Imports" })
-    vim.keymap.set("n", "<space>li", ":TSToolsAddMissingImports", { desc = "[LSP] Add Missing [I]mports" })
-    vim.keymap.set("n", "<space>lR", ":TSToolsRenameFile", { desc = "[LSP] [R]ename File" })
+    vim.keymap.set("n", "<space>lo", ":TSToolsOrganizeImports<CR>", { desc = "[LSP] [O]rganize Imports" })
+    vim.keymap.set("n", "<space>li", ":TSToolsAddMissingImports<CR>", { desc = "[LSP] Add Missing [I]mports" })
+    vim.keymap.set("n", "<space>lR", ":TSToolsRenameFile<CR>", { desc = "[LSP] [R]ename File" })
   end,
 })
 
