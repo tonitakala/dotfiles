@@ -1,6 +1,6 @@
 require("mason").setup()
 require("mason-lspconfig").setup({})
-require("typescript-tools").setup({})
+-- require("typescript-tools").setup({})
 
 -- Set up lspconfig.
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -105,9 +105,33 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- vim.keymap.set('n', '<space>f', function()
 		--  vim.lsp.buf.format { async = true }
 		-- end, opts)
-		vim.keymap.set("n", "<space>lo", ":TSToolsOrganizeImports<CR>", { desc = "[LSP] [O]rganize Imports" })
-		vim.keymap.set("n", "<space>li", ":TSToolsAddMissingImports<CR>", { desc = "[LSP] Add Missing [I]mports" })
-		vim.keymap.set("n", "<space>lR", ":TSToolsRenameFile<CR>", { desc = "[LSP] [R]ename File" })
+		-- vim.keymap.set("n", "<space>lo", ":TSToolsOrganizeImports<CR>", { desc = "[LSP] [O]rganize Imports" })
+
+		-- Organize Imports using LSP code action
+		vim.keymap.set("n", "<space>lo", function()
+			-- Ask only for organize-imports actions and apply them immediately
+			vim.lsp.buf.code_action({
+				apply = true,
+				context = { only = { "source.organizeImports" }, diagnostics = {} },
+			})
+		end, vim.tbl_extend("force", opts, { desc = "[LSP] [O]rganize Imports" }))
+
+		-- Add Missing Imports using LSP code action
+		vim.keymap.set("n", "<space>li", function()
+			-- First, add missing imports
+			vim.lsp.buf.code_action({
+				apply = true,
+				context = { only = { "source.addMissingImports.ts" }, diagnostics = {} },
+			})
+			-- Then, organize imports
+			vim.lsp.buf.code_action({
+				apply = true,
+				context = { only = { "source.organizeImports" }, diagnostics = {} },
+			})
+		end, vim.tbl_extend("force", opts, { desc = "[LSP] Add Missing [I]mports" }))
+
+		-- vim.keymap.set("n", "<space>li", ":TSToolsAddMissingImports<CR>", { desc = "[LSP] Add Missing [I]mports" })
+		-- vim.keymap.set("n", "<space>lR", ":TSToolsRenameFile<CR>", { desc = "[LSP] [R]ename File" })
 	end,
 })
 
