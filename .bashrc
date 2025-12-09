@@ -146,11 +146,48 @@ export BROWSER="/mnt/c/windows/system32/cmd.exe /c start" # add to ~/.profile to
 # remember to run `chmod +x askpass.sh`
 export SSH_ASKPASS_OVERRIDE="$HOME/dotfiles/askpass.sh"
 
-# Show git branch in terminal
+### START -  Always show git branch ###
 parse_git_branch() {
-     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+  # Get current branch name (or exit silently if not in a git repo)
+  local branch
+  branch=$(git symbolic-ref --quiet --short HEAD 2>/dev/null) || return
+
+  # Try to find the upstream (origin/main, origin/feature-xyz, etc.)
+  local upstream
+  upstream=$(git rev-parse --abbrev-ref --symbolic-full-name '@{u}' 2>/dev/null) || {
+    # No upstream configured: just show the branch name
+    printf '%s' "$branch"
+    return
+  }
+
+  # Count commits ahead/behind upstream
+  local counts behind ahead
+  counts=$(git rev-list --left-right --count "$upstream"...HEAD 2>/dev/null) || {
+    printf '%s' "$branch"
+    return
+  }
+
+  # Split "X<tab>Y" (or any whitespace) into behind and ahead
+  read -r behind ahead <<<"$counts"
+
+  # Safety defaults
+  behind=${behind:-0}
+  ahead=${ahead:-0}
+
+  # Build output: branch [<behind>↓] [<ahead>↑]
+  local out="$branch"
+  if [ "$behind" -ne 0 ]; then
+    out+=" ${behind}↓"
+  fi
+  if [ "$ahead" -ne 0 ]; then
+    out+=" ${ahead}↑"
+  fi
+
+  printf '%s' "$out"
 }
-export PS1="\[\e[32m\]\u@\h:\[\e[34m\]\w \[\e[91m\]\$(parse_git_branch)\[\e[00m\]$ "
+
+PS1='\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[0m\]:\[\033[01;34m\]\w\[\033[0m\]$(branch=$(parse_git_branch); [ -n "$branch" ] && printf " \[\033[0;31m\](%s)\[\033[0m\]" "$branch")\$ '
+### END - Always show git branch ###
 
 # Load Angular CLI autocompletion.
 # source <(ng completion script)
